@@ -16,7 +16,7 @@ if (isPassword) {
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-}</script></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="author-info"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/fan-lv" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:15757856604@163.com" target="_blank">E-Mail<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="tencent://message/?uin=1019593584&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color6"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">3</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="title-name" href="/">Hexo</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><div id="recent-posts"><!-- each post in page.posts.sort('date', -1).limit(10).toArray()--><!-- config中配置按照什么排序--><div class="recent-post-item"><a class="post-title" href="/2019/09/19/first-markdown/">first markdown</a><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 更新于 2019-09-19</time></div><div class="post-content"><div class="main-content content"></div></div><a class="button-hover more" href="/2019/09/19/first-markdown/#more">阅读全文</a></div><div class="recent-post-item"><a class="post-title" href="/2019/09/19/hexo搭建博客/">hexo搭建博客</a><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 更新于 2019-09-19</time></div><div class="post-content"><div class="main-content content"><h5 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h5><hr>
+}</script></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="author-info"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/fan-lv" target="_blank">GitHub<i class="icon-dot bg-color10"></i></a><a class="links-button button-hover" href="mailto:15757856604@163.com" target="_blank">E-Mail<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="tencent://message/?uin=1019593584&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color3"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">3</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="title-name" href="/">Hexo</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><div id="recent-posts"><!-- each post in page.posts.sort('date', -1).limit(10).toArray()--><!-- config中配置按照什么排序--><div class="recent-post-item"><a class="post-title" href="/2019/09/19/first-markdown/">first markdown</a><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 更新于 2019-09-19</time></div><div class="post-content"><div class="main-content content"></div></div><a class="button-hover more" href="/2019/09/19/first-markdown/#more">阅读全文</a></div><div class="recent-post-item"><a class="post-title" href="/2019/09/19/hexo搭建博客/">hexo搭建博客</a><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 更新于 2019-09-19</time></div><div class="post-content"><div class="main-content content"><h5 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h5><hr>
 <ol>
 <li><p>前往<a href="https://nodejs.org/en/下载安装node.js" target="_blank" rel="noopener">https://nodejs.org/en/下载安装node.js</a></p>
 <p><img src="/2019/09/19/hexo搭建博客/nodejs.png" alt="1568892566485"></p>
@@ -83,10 +83,34 @@ if (isPassword) {
 <p>注：冒号后面有一个空格</p>
 </li>
 <li><p>命令行输入hexo d部署到github</p>
+<p><img src="/2019/09/19/hexo搭建博客/togithub.png" alt></p>
+<p>这样就将博客部署到github上去了，以后就可以通过访问博客仓库名直接访问到我们的博客了</p>
 </li>
 </ol>
 <hr>
 <h5 id="博客文章引入图片问题"><a href="#博客文章引入图片问题" class="headerlink" title="博客文章引入图片问题"></a>博客文章引入图片问题</h5><hr>
+<ol>
+<li><p>本地引入图片路径问题：</p>
+<ol>
+<li><p>如果在未下载引入图片相关插件时，图片路径会乱码，导致在博客文章中无法显示图片</p>
+</li>
+<li><p>解决：</p>
+<ol>
+<li><p>打开全局_config.yml将<code>post_asset_folder: false</code>改为<code>post_asset_folder: true</code></p>
+<p><img src="/2019/09/19/hexo搭建博客/imgconfig.png" alt></p>
+</li>
+<li><p>运行hexo new ‘xxx’后会在posts目录下同时生成一个与博客文章同名的文件夹，将图片放在该文件夹里（直接放在文件夹内，不需要在里面再建文件夹放置）</p>
+</li>
+<li><p>在博客文章中想添加图片的位置写入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](/图片名称.图片格式)  //如![](/image.png)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在博客根目录打开cmd输入hexo g和hexo s在本地预览查看</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
 <hr>
 </div></div><a class="button-hover more" href="/2019/09/19/hexo搭建博客/#more">阅读全文</a></div><div class="recent-post-item"><a class="post-title" href="/2019/09/19/hello-world/">Hello World</a><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 更新于 2019-09-19</time></div><div class="post-content"><div class="main-content content"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>

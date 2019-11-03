@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="沐雨" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="稀疏数组和队列  稀疏数组：当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组   处理方法：  记录数组一共几行几列，有多少个不为0的元素  把 不为0的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模">
+<meta name="keywords" content="java数据结构与算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="稀疏数组和队列">
+<meta property="og:url" content="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/index.html">
+<meta property="og:site_name" content="沐雨">
+<meta property="og:description" content="稀疏数组和队列  稀疏数组：当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组   处理方法：  记录数组一共几行几列，有多少个不为0的元素  把 不为0的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/%E5%88%86%E6%9E%90%E5%9B%BE.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/%E6%B5%8B%E8%AF%951.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/%E9%98%9F%E5%88%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97%E6%80%9D%E8%B7%AF.png">
+<meta property="og:updated_time" content="2019-11-03T08:52:58.898Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="稀疏数组和队列">
+<meta name="twitter:description" content="稀疏数组和队列  稀疏数组：当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组   处理方法：  记录数组一共几行几列，有多少个不为0的元素  把 不为0的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模">
+<meta name="twitter:image" content="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84.png">
+  <link rel="canonical" href="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>稀疏数组和队列 | 沐雨</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	<a href="https://github.com/fanghua-code" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">沐雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://fanghua-code.github.io/2019/11/03/稀疏数组和队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanghua-code">
+      <meta itemprop="description" content="not perfect solider, but a good man">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沐雨">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">稀疏数组和队列
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-03 16:16:50 / 修改时间：16:52:58" itemprop="dateCreated datePublished" datetime="2019-11-03T16:16:50+08:00">2019-11-03</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java数据结构与算法/" itemprop="url" rel="index"><span itemprop="name">java数据结构与算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="稀疏数组和队列"><a href="#稀疏数组和队列" class="headerlink" title="稀疏数组和队列"></a>稀疏数组和队列</h5><hr>
+<ol>
+<li><p>稀疏数组：当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组 </p>
+</li>
+<li><p>处理方法：</p>
+<ol>
+<li><p>记录数组一共几行几列，有多少个不为0的元素</p>
+</li>
+<li><p>把 不为0的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模</p>
+<p><img src="/2019/11/03/稀疏数组和队列/%E7%A8%80%E7%96%8F%E6%95%B0%E7%BB%84.png" alt></p>
+</li>
+</ol>
+<a id="more"></a>
+</li>
+<li><p>应用实例：</p>
+<ol>
+<li><p>使用稀疏数组来保留非0元素较多的二维数组（棋盘、地图等等）</p>
+</li>
+<li><p>把稀疏数组存盘，并且可以重新恢复为原来的二维数组</p>
+</li>
+<li><p>分析：</p>
+<ul>
+<li><p>二维数组 ==》稀疏数组</p>
+<ul>
+<li>遍历原始的二维数组，得到有效数据（非0元素）的个数sum</li>
+<li>根据sum就可以创建稀疏数组sparseArr int[sum+1][3]</li>
+<li>将二维数组的有效数据存入到稀疏数组</li>
+</ul>
+</li>
+<li><p>稀疏数组 ==》二维数组</p>
+<ul>
+<li><p>先读取稀疏数组的第一行，根据第一行的数据，创建原始的二维数组</p>
+</li>
+<li><p>再读取稀疏数组后几行的数据，并赋给原始二维数组即可</p>
+<p><img src="/2019/11/03/稀疏数组和队列/%E5%88%86%E6%9E%90%E5%9B%BE.png" alt></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 二维数组与稀疏数组的转换（这里以棋盘的存档与读档为例）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 沐雨</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SparseArrDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//0、先创建原始的11x11的二维数组，0表示没有棋子，1表示黑子，2表示白子</span></span><br><span class="line">        <span class="keyword">int</span> chessArr1[][] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">11</span>][<span class="number">11</span>];</span><br><span class="line">        chessArr1[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">1</span>;  <span class="comment">//棋盘第二行第三列有一颗黑子</span></span><br><span class="line">        chessArr1[<span class="number">2</span>][<span class="number">3</span>] = <span class="number">2</span>;  <span class="comment">//棋盘第三行第四列有一颗白子</span></span><br><span class="line">        <span class="comment">//遍历原始数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] row : chessArr1) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : row) &#123;</span><br><span class="line">                System.out.print(data + <span class="string">"\t"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//1、二维数组 ==》稀疏数组</span></span><br><span class="line">        <span class="comment">//遍历原始二维数组，获取非0元素个数</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">11</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">11</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (chessArr1[i][j] != <span class="number">0</span>) &#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//创建稀疏数组</span></span><br><span class="line">        <span class="keyword">int</span> sparseArr[][] = <span class="keyword">new</span> <span class="keyword">int</span>[sum + <span class="number">1</span>][<span class="number">3</span>];</span><br><span class="line">        <span class="comment">//给稀疏数组第一行赋值</span></span><br><span class="line">        sparseArr[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">11</span>;</span><br><span class="line">        sparseArr[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">11</span>;</span><br><span class="line">        sparseArr[<span class="number">0</span>][<span class="number">2</span>] = sum;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>; <span class="comment">//用于记录第几个非0数据</span></span><br><span class="line">        <span class="comment">//遍历原始数组，将非0元素添加到稀疏数组中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">11</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">11</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (chessArr1[i][j] != <span class="number">0</span>) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                    sparseArr[count][<span class="number">0</span>] = i;</span><br><span class="line">                    sparseArr[count][<span class="number">1</span>] = j;</span><br><span class="line">                    sparseArr[count][<span class="number">2</span>] = chessArr1[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//输出稀疏数组的形式</span></span><br><span class="line">        System.out.println(<span class="string">"得到的稀疏数组的形式："</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] row : sparseArr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : row) &#123;</span><br><span class="line">                System.out.print(data + <span class="string">"\t"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"-----------------------------------------"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、稀疏数组 ==》文件</span></span><br><span class="line">        OutputStream out = <span class="keyword">null</span>;</span><br><span class="line">        PrintStream ps = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            out = <span class="keyword">new</span> FileOutputStream(<span class="string">"map.txt"</span>);</span><br><span class="line">            ps = <span class="keyword">new</span> PrintStream(out);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sparseArr.length; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">                    ps.print(sparseArr[i][j] + <span class="string">","</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                ps.println();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            ps.close();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                out.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3、文件 ==》稀疏数组</span></span><br><span class="line">        String arr1[] = <span class="keyword">new</span> String[sum + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> arr2[][] = <span class="keyword">new</span> <span class="keyword">int</span>[sum + <span class="number">1</span>][<span class="number">3</span>];</span><br><span class="line">        BufferedReader reader = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"map.txt"</span>));</span><br><span class="line">            String line = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((line = reader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                arr1[i] = line;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; sum + <span class="number">1</span>; j++) &#123;</span><br><span class="line">                String[] split = arr1[j].split(<span class="string">","</span>);</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; split.length; k++) &#123;</span><br><span class="line">                    arr2[j][k] = Integer.parseInt(split[k]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                reader.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] row : arr2) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : row) &#123;</span><br><span class="line">                System.out.print(data + <span class="string">"\t"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4、稀疏数组 ==》二维数组</span></span><br><span class="line">        <span class="comment">//先读取稀疏数组的第一行，根据第一行的数据，创建原始的二维数组</span></span><br><span class="line">        <span class="keyword">int</span> chessArr2[][] = <span class="keyword">new</span> <span class="keyword">int</span>[arr2[<span class="number">0</span>][<span class="number">0</span>]][arr2[<span class="number">0</span>][<span class="number">1</span>]];</span><br><span class="line">        <span class="comment">//载读取稀疏数组的后几行的数据（从第二行开始），并赋给原始的二维数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr2.length; i++) &#123;</span><br><span class="line">            chessArr2[arr2[i][<span class="number">0</span>]][arr2[i][<span class="number">1</span>]] = arr2[i][<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"还原的原始二维数组："</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] row : chessArr2) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : row) &#123;</span><br><span class="line">                System.out.print(data + <span class="string">"\t"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试：</p>
+<p><img src="/2019/11/03/稀疏数组和队列/%E6%B5%8B%E8%AF%951.png" alt></p>
+</li>
+</ol>
+</li>
+<li><p>队列</p>
+<ol>
+<li><p>队列介绍：</p>
+<ol>
+<li><p>队列是一个有序列表，可以用数组或是链表来实现</p>
+</li>
+<li><p>遵循先入先出的原则。即：先存入队列的数据先取出，后存入队列的数据后取出</p>
+</li>
+<li><p>示意图：</p>
+<p><img src="/2019/11/03/稀疏数组和队列/%E9%98%9F%E5%88%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt></p>
+</li>
+</ol>
+</li>
+<li><p>数组模拟队列</p>
+<ol>
+<li><p>队列本身是有序列表，若使用数组的结构来存储队列的数据，则队列数组的声明如上图。其中maxSize是该队列的最大容量</p>
+</li>
+<li><p>因为队列的输入、输出是分别从前后端来处理，因此需要两个变量front和rear分别记录队列前后端的下标，front会随着数据的输出而改变，而rear则是随着数据的输入而改变</p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试队列</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 沐雨</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayQueueDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//初始化队列</span></span><br><span class="line">        ArrayQueue queue = <span class="keyword">new</span> ArrayQueue(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">char</span> key = <span class="string">' '</span>;  <span class="comment">//接收用户输入</span></span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">while</span> (loop) &#123;</span><br><span class="line">            System.out.println(<span class="string">"s(show)：展示队列"</span>);</span><br><span class="line">            System.out.println(<span class="string">"e(exit)：退出程序"</span>);</span><br><span class="line">            System.out.println(<span class="string">"a(add)：添加数据到队列"</span>);</span><br><span class="line">            System.out.println(<span class="string">"g(get)：从队列取出元素"</span>);</span><br><span class="line">            System.out.println(<span class="string">"h(head)：查看队列头数据"</span>);</span><br><span class="line">            key = sc.next().charAt(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">switch</span> (key) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'s'</span>:</span><br><span class="line">                    queue.listQueue();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'a'</span>:</span><br><span class="line">                    System.out.println(<span class="string">"请输入要存入的数据："</span>);</span><br><span class="line">                    <span class="keyword">int</span> value = sc.nextInt();</span><br><span class="line">                    queue.addQueue(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'g'</span>:</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">int</span> res = queue.getQueue();</span><br><span class="line">                        System.out.println(<span class="string">"取出的数据是："</span> + res);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'h'</span>:</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">int</span> headData = queue.headQueue();</span><br><span class="line">                        System.out.println(<span class="string">"队列的头数据为："</span> + headData);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'e'</span>:</span><br><span class="line">                    sc.close();</span><br><span class="line">                    loop = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"程序退出"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用数组模拟队列：编写一个ArrayQueue类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArrayQueue</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxSize;  <span class="comment">//表示队列的最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> front;  <span class="comment">//队列头</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rear;  <span class="comment">//队列尾</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] arr;  <span class="comment">//用于模拟队列的数组</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化队列的构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ArrayQueue</span><span class="params">(<span class="keyword">int</span> arrMaxSize)</span> </span>&#123;</span><br><span class="line">        maxSize = arrMaxSize;</span><br><span class="line">        arr = <span class="keyword">new</span> <span class="keyword">int</span>[maxSize];</span><br><span class="line">        front = -<span class="number">1</span>;  <span class="comment">//指向队列头部，分析出front是指向队列头的前一个位置</span></span><br><span class="line">        rear = -<span class="number">1</span>;  <span class="comment">//指向队列尾部，指向队列尾的数据（即队列最后一个数据）</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断队列是否满</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> rear == maxSize -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断队列是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> front == rear;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加数据到队列</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addQueue</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断队列是否满</span></span><br><span class="line">        <span class="keyword">if</span> (isFull()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"队列已满！"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        rear++;  <span class="comment">//让rear后移</span></span><br><span class="line">        arr[rear] = n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取队列数据，即出队列</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断队列是否为空</span></span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="comment">//通过抛出异常来处理</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"队列为空！无数据可取"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        front++;  <span class="comment">//front后移</span></span><br><span class="line">        <span class="keyword">return</span> arr[front];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//展示队列的所有数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//遍历</span></span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"队列为空！"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = front + <span class="number">1</span>; i &lt;= rear; i++) &#123;</span><br><span class="line">            System.out.print(arr[i] + <span class="string">"\t\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取队列头数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">headQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"队列为空！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr[front + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>存在问题及优化：</p>
+<ol>
+<li>数组模拟的队列只能使用一次，没有达到复用的效果</li>
+<li>使用算法，改进成一个环形队列（采用取模的方式：%）</li>
+</ol>
+</li>
+<li><p>环形队列的思路分析：</p>
+<ol>
+<li><p>front的含义做一个调整：front指向队列的第一个元素，也就是说arr[front]就是队列的第一个元素，初始值为0</p>
+</li>
+<li><p>rear的含义做一个调整：rear指向队列最后一个元素的后一个位置，初始值为0</p>
+</li>
+<li><p>当队列为空时：(rear + 1) % maxSize == front</p>
+</li>
+<li><p>队列中有效数据的个数：(rear + maxSize - front) % maxSzie</p>
+<p><img src="/2019/11/03/稀疏数组和队列/%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97%E6%80%9D%E8%B7%AF.png" alt></p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试环形队列</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 沐雨</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircleArrayQueueDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//初始化队列</span></span><br><span class="line">        CircleArrayQueue queue = <span class="keyword">new</span> CircleArrayQueue(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">char</span> key = <span class="string">' '</span>;  <span class="comment">//接收用户输入</span></span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">boolean</span> loop = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">while</span> (loop) &#123;</span><br><span class="line">            System.out.println(<span class="string">"s(show)：展示队列"</span>);</span><br><span class="line">            System.out.println(<span class="string">"e(exit)：退出程序"</span>);</span><br><span class="line">            System.out.println(<span class="string">"a(add)：添加数据到队列"</span>);</span><br><span class="line">            System.out.println(<span class="string">"g(get)：从队列取出元素"</span>);</span><br><span class="line">            System.out.println(<span class="string">"h(head)：查看队列头数据"</span>);</span><br><span class="line">            key = sc.next().charAt(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">switch</span> (key) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'s'</span>:</span><br><span class="line">                    queue.listQueue();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'a'</span>:</span><br><span class="line">                    System.out.println(<span class="string">"请输入要存入的数据："</span>);</span><br><span class="line">                    <span class="keyword">int</span> value = sc.nextInt();</span><br><span class="line">                    queue.addQueue(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'g'</span>:</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">int</span> res = queue.getQueue();</span><br><span class="line">                        System.out.println(<span class="string">"取出的数据是："</span> + res);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'h'</span>:</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">int</span> headData = queue.headQueue();</span><br><span class="line">                        System.out.println(<span class="string">"队列的头数据为："</span> + headData);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'e'</span>:</span><br><span class="line">                    sc.close();</span><br><span class="line">                    loop = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"程序退出"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 环形数组队列</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CircleArrayQueue</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxSize;  <span class="comment">//表示队列的最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> front;  <span class="comment">//队列头，指向队列头部，指向队列第一个元素</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rear;  <span class="comment">//队列尾，指向队列尾部，指向队列最后一个元素的后一个位置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] arr;  <span class="comment">//用于模拟队列的数组</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化队列的构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CircleArrayQueue</span><span class="params">(<span class="keyword">int</span> arrMaxSize)</span> </span>&#123;</span><br><span class="line">        maxSize = arrMaxSize;</span><br><span class="line">        arr = <span class="keyword">new</span> <span class="keyword">int</span>[maxSize];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断队列是否满</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (rear + <span class="number">1</span>) % maxSize == front;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断队列是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> front == rear;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加数据到队列</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addQueue</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断队列是否满</span></span><br><span class="line">        <span class="keyword">if</span> (isFull()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"队列已满！"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//直接添加元素</span></span><br><span class="line">        arr[rear] = n;</span><br><span class="line">        <span class="comment">//将rear后移，这里要考虑取模</span></span><br><span class="line">        rear = (rear + <span class="number">1</span>) % maxSize;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取队列数据，即出队列</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断队列是否为空</span></span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="comment">//通过抛出异常来处理</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"队列为空！无数据可取"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//把front指向的数据保存到一个临时变量</span></span><br><span class="line">        <span class="keyword">int</span> tempValue = arr[front];</span><br><span class="line">        <span class="comment">//将front后移，这里要考虑取模</span></span><br><span class="line">        front = (front + <span class="number">1</span>) % maxSize;</span><br><span class="line">        <span class="keyword">return</span> tempValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//展示队列的所有数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//遍历</span></span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"队列为空！"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = front; i &lt; front + size(); i++) &#123;</span><br><span class="line">            System.out.println(arr[i % maxSize]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//得到当前队列的大小（有效数据的个数）</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (rear + maxSize - front) % maxSize;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取队列头数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">headQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"队列为空！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr[front];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>Donate comment here.</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="fanghua-code 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/java数据结构与算法/" rel="tag"># java数据结构与算法</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/03/逆波兰计算器/" rel="next" title="逆波兰计算器">
+                  <i class="fa fa-chevron-left"></i> 逆波兰计算器
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80Njc0OS8yMzI1MQ=="></div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#稀疏数组和队列"><span class="nav-number">1.</span> <span class="nav-text">稀疏数组和队列</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="fanghua-code">
+  <p class="site-author-name" itemprop="name">fanghua-code</p>
+  <div class="site-description" itemprop="description">not perfect solider, but a good man</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/fanghua-code" title="GitHub &rarr; https://github.com/fanghua-code" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com/6636830401" title="Weibo &rarr; https://weibo.com/6636830401" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://yangxinle1999.github.io/" title="https://yangxinle1999.github.io/" rel="noopener" target="_blank">帅气的新乐哥啊</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fanghua-code</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.0</div>
+-->
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+    
+    
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+</body>
+</html>

@@ -56,20 +56,20 @@
   };
 </script>
 
-  <meta name="description" content="逆波兰计算器的实现中缀表达式转后缀表达式 中缀表达式：  中缀表达式就是我们最常见的表达式，如：(3+4)x5-6 中缀表达式的求值时我们最熟悉的，但是对于计算机来说却不好操作，因此，在计算结果时，往往会将中缀表达式转成其他表达式来操作（一般转为后缀表达式）   后缀表达式（逆波兰表达式）  后缀表达式又称为逆波兰表达式，与前缀表达式相似，只是运算符位于操作数之后 eg：(3+4)x5-6 ==》">
+  <meta name="description" content="逆波兰计算器的实现 中缀表达式转后缀表达式 中缀表达式：  中缀表达式就是我们最常见的表达式，如：(3+4)x5-6 中缀表达式的求值时我们最熟悉的，但是对于计算机来说却不好操作，因此，在计算结果时，往往会将中缀表达式转成其他表达式来操作（一般转为后缀表达式）   后缀表达式（逆波兰表达式）  后缀表达式又称为逆波兰表达式，与前缀表达式相似，只是运算符位于操作数之后 eg：(3+4)x5-6 ==">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆波兰计算器">
 <meta property="og:url" content="http://fanghua-code.github.io/2019/11/03/逆波兰计算器/index.html">
 <meta property="og:site_name" content="沐雨">
-<meta property="og:description" content="逆波兰计算器的实现中缀表达式转后缀表达式 中缀表达式：  中缀表达式就是我们最常见的表达式，如：(3+4)x5-6 中缀表达式的求值时我们最熟悉的，但是对于计算机来说却不好操作，因此，在计算结果时，往往会将中缀表达式转成其他表达式来操作（一般转为后缀表达式）   后缀表达式（逆波兰表达式）  后缀表达式又称为逆波兰表达式，与前缀表达式相似，只是运算符位于操作数之后 eg：(3+4)x5-6 ==》">
+<meta property="og:description" content="逆波兰计算器的实现 中缀表达式转后缀表达式 中缀表达式：  中缀表达式就是我们最常见的表达式，如：(3+4)x5-6 中缀表达式的求值时我们最熟悉的，但是对于计算机来说却不好操作，因此，在计算结果时，往往会将中缀表达式转成其他表达式来操作（一般转为后缀表达式）   后缀表达式（逆波兰表达式）  后缀表达式又称为逆波兰表达式，与前缀表达式相似，只是运算符位于操作数之后 eg：(3+4)x5-6 ==">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/03/逆波兰计算器/suffix.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/03/逆波兰计算器/calRes.png">
-<meta property="og:updated_time" content="2019-11-03T08:04:46.681Z">
+<meta property="og:updated_time" content="2019-11-03T08:12:32.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆波兰计算器">
-<meta name="twitter:description" content="逆波兰计算器的实现中缀表达式转后缀表达式 中缀表达式：  中缀表达式就是我们最常见的表达式，如：(3+4)x5-6 中缀表达式的求值时我们最熟悉的，但是对于计算机来说却不好操作，因此，在计算结果时，往往会将中缀表达式转成其他表达式来操作（一般转为后缀表达式）   后缀表达式（逆波兰表达式）  后缀表达式又称为逆波兰表达式，与前缀表达式相似，只是运算符位于操作数之后 eg：(3+4)x5-6 ==》">
+<meta name="twitter:description" content="逆波兰计算器的实现 中缀表达式转后缀表达式 中缀表达式：  中缀表达式就是我们最常见的表达式，如：(3+4)x5-6 中缀表达式的求值时我们最熟悉的，但是对于计算机来说却不好操作，因此，在计算结果时，往往会将中缀表达式转成其他表达式来操作（一般转为后缀表达式）   后缀表达式（逆波兰表达式）  后缀表达式又称为逆波兰表达式，与前缀表达式相似，只是运算符位于操作数之后 eg：(3+4)x5-6 ==">
 <meta name="twitter:image" content="http://fanghua-code.github.io/2019/11/03/逆波兰计算器/suffix.png">
   <link rel="canonical" href="http://fanghua-code.github.io/2019/11/03/逆波兰计算器/">
 
@@ -278,7 +278,7 @@
                 
               
 
-              <time title="创建时间：2019-11-03 15:35:28 / 修改时间：16:04:46" itemprop="dateCreated datePublished" datetime="2019-11-03T15:35:28+08:00">2019-11-03</time>
+              <time title="创建时间：2019-11-03 15:35:28 / 修改时间：16:12:32" itemprop="dateCreated datePublished" datetime="2019-11-03T15:35:28+08:00">2019-11-03</time>
             </span>
           
             
@@ -310,7 +310,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="逆波兰计算器的实现"><a href="#逆波兰计算器的实现" class="headerlink" title="逆波兰计算器的实现"></a>逆波兰计算器的实现</h3><hr><h5 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h5><ol>
+        <h3 id="逆波兰计算器的实现"><a href="#逆波兰计算器的实现" class="headerlink" title="逆波兰计算器的实现"></a>逆波兰计算器的实现</h3><hr>
+<h5 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h5><ol>
 <li><p>中缀表达式：</p>
 <ol>
 <li>中缀表达式就是我们最常见的表达式，如：(3+4)x5-6</li>
@@ -326,6 +327,7 @@
 <p><img src="/2019/11/03/逆波兰计算器/suffix.png" alt></p>
 </li>
 </ol>
+<a id="more"></a>
 </li>
 <li><p>中缀表达式转后缀表达式</p>
 <ol>
@@ -356,8 +358,7 @@
 </li>
 </ol>
 </li>
-</ol><a id="more"></a>
-
+</ol>
 <h5 id="逆波兰表达式的计算"><a href="#逆波兰表达式的计算" class="headerlink" title="逆波兰表达式的计算"></a>逆波兰表达式的计算</h5><ol>
 <li><p>思路分析：后缀表达式的计算机求值：从左至右扫描表达式，遇到数字时，将数字压入堆栈，遇到运算符时，弹出栈顶的两个数，用运算符进行相应的计算，并将结果入栈；重复上述过程直到表达式的最右端，最后运算得出的值即为表达式的结果</p>
 </li>
@@ -414,8 +415,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/11/03/hello-world/" rel="next" title="Hello World">
-                  <i class="fa fa-chevron-left"></i> Hello World
+                <a href="/2019/09/27/前端zTree插件/" rel="next" title="前端zTree插件">
+                  <i class="fa fa-chevron-left"></i> 前端zTree插件
                 </a>
               
             </div>
@@ -496,7 +497,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

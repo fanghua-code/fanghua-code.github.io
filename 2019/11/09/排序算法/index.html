@@ -71,6 +71,7 @@
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/SelectSortTest.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/InsertSort.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/InsertSortTest.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E9%97%AE%E9%A2%98.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/ShellSort.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/ShellSortTest.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/QuickSort.png">
@@ -82,7 +83,14 @@
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/RadixSort2.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/RadixSortTest.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83%E6%83%85%E5%86%B52.png">
-<meta property="og:updated_time" content="2019-11-09T10:24:54.000Z">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/09/排序算法/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png">
+<meta property="og:updated_time" content="2019-11-09T10:35:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="排序算法">
 <meta name="twitter:description" content="排序算法  排序算法的介绍：  排序也称为排序算法（Sort Algorithm），排序时将一组数据进行排列的过程。  排序的分类：">
@@ -294,7 +302,7 @@
                 
               
 
-              <time title="创建时间：2019-11-09 16:40:10 / 修改时间：18:24:54" itemprop="dateCreated datePublished" datetime="2019-11-09T16:40:10+08:00">2019-11-09</time>
+              <time title="创建时间：2019-11-09 16:40:10 / 修改时间：18:35:26" itemprop="dateCreated datePublished" datetime="2019-11-09T16:40:10+08:00">2019-11-09</time>
             </span>
           
             
@@ -356,7 +364,7 @@
 <li><p>基本介绍：</p>
 <ol>
 <li>冒泡排序的基本思想是：通过对待排序序列从前向后（从下标较小的元素开始），依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部，就像水底下的气泡一样逐渐向上冒。</li>
-<li><strong>因为排序的过程中，各元素不断接近自己的位置，**</strong>如果一趟比较下来没有进行过交换，就说明序列有序<strong>**，因此在排序过程中设置一个标志flag判断元素是否进行过交换，从而减少不必要的比较</strong></li>
+<li><strong>因为排序的过程中，各元素不断接近自己的位置，</strong>如果一趟比较下来没有进行过交换，就说明序列有序<strong>，因此在排序过程中设置一个标志flag判断元素是否进行过交换，从而减少不必要的比较</strong></li>
 </ol>
 </li>
 <li><p>代码实现：</p>
@@ -371,7 +379,7 @@
 <ol>
 <li><p>基本介绍：选择式排序也属于内部排序法，是从欲排序的数据中，按指定的规则选出某一个元素，再依规定交换位置后达到排序的目的。</p>
 </li>
-<li><p>选择排序思想：第一次从arr[0]<del>arr[n - 1]中选取最小值，与arr[0]交换，第二次从arr[1]</del>arr[n - 1]中选取最小值，与arr[1]交换……第i次从arr[i - 1]<del>arr[n - 1]中选取最小值，与arr[i - 1]交换……第n - 1次从arr[n - 2]</del>arr[n - 1]中选取最小值，与arr[n - 2]交换，总共通过n - 1次，得到一个按排序码从小到大排序的有序序列。</p>
+<li><p>选择排序思想：第一次从arr[0]到arr[n - 1]中选取最小值，与arr[0]交换，第二次从arr[1]到arr[n - 1]中选取最小值，与arr[1]交换……第i次从arr[i - 1]到arr[n - 1]中选取最小值，与arr[i - 1]交换……第n - 1次从arr[n - 2]到arr[n - 1]中选取最小值，与arr[n - 2]交换，总共通过n - 1次，得到一个按排序码从小到大排序的有序序列。</p>
 </li>
 <li><p>代码实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 选择排序</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 沐雨</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectedSort</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 选择排序方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr 需要排序的数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> minIndex = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            minIndex = i;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; arr.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[j] &lt; arr[i]) &#123;</span><br><span class="line">                    minIndex = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i != minIndex) &#123;</span><br><span class="line">                temp = arr[i];</span><br><span class="line">                arr[i] = arr[minIndex];</span><br><span class="line">                arr[minIndex] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//测试选择排序</span></span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">10</span>, <span class="number">81</span>, <span class="number">64</span>, <span class="number">34</span>, <span class="number">45</span>&#125;;</span><br><span class="line">        SelectedSort.sort(arr);</span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//测试选择排序的速度</span></span><br><span class="line">        <span class="keyword">int</span>[] testArr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">80000</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; testArr.length; i++) &#123;</span><br><span class="line">            testArr[i] = (<span class="keyword">int</span>) (Math.random() * <span class="number">800000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> t1 = System.currentTimeMillis();</span><br><span class="line">        SelectedSort.sort(testArr);</span><br><span class="line">        <span class="keyword">long</span> t2 = System.currentTimeMillis();</span><br><span class="line">        System.out.println((t2 - t1) / <span class="number">1000.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -395,7 +403,7 @@
 <p><img src="/2019/11/09/排序算法/InsertSortTest.png" alt></p>
 </li>
 <li><p>存在问题：<strong>当需要插入的数是较小的数时，后移的次数明显增多，对效率有影响。</strong></p>
-<p>![](/The problem of insertSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E9%97%AE%E9%A2%98.png" alt></p>
 </li>
 </ol>
 <hr>
@@ -478,7 +486,7 @@
 <li>基数排序是对桶排序的扩展，速度很快。</li>
 <li>基数排序是经典的空间换时间的方式，占用内存很大，当对海量数据排序时，容易造成OutOfMemoryError。</li>
 <li>基数排序是稳定的。【注：假定在待排序的记录序列中，存在多个具有相同的关键字的记录，若经过排序，这些记录的相对次序保持不变，即在原序列中，r[i] = r[j]，且r[i]在r[j]之前，而在排序后的序列中，r[i]仍在r[j]之前，<strong>则称这种排序算法时稳定的，否则称为不稳定的</strong>】。</li>
-<li><strong>有负数的数组，我们不用基数排序来进行排序，如果要支持负数，参考：**</strong><a href="https://code.i-harness.com/zh-CN/q/e98fa9" target="_blank" rel="noopener">https://code.i-harness.com/zh-CN/q/e98fa9</a>**</li>
+<li><strong>有负数的数组，我们不用基数排序来进行排序，如果要支持负数，参考：</strong><a href="https://code.i-harness.com/zh-CN/q/e98fa9" target="_blank" rel="noopener">https://code.i-harness.com/zh-CN/q/e98fa9</a></li>
 </ul>
 </li>
 </ol>
@@ -489,25 +497,25 @@
 <li><p>在对长度为80000的数组进行排序时，以上排序算法个消耗时间为：</p>
 <ul>
 <li><p>冒泡排序：</p>
-<p>![](/Time of bubbleSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png" alt></p>
 </li>
 <li><p>选择排序：</p>
-<p>![](/Time of selectSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png" alt></p>
 </li>
 <li><p>插入排序：</p>
-<p>![](/Time of insertSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png" alt></p>
 </li>
 <li><p>希尔排序：</p>
-<p>![](/Time of shellSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png" alt></p>
 </li>
 <li><p>快速排序：</p>
-<p>![](/Time of quickSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png" alt></p>
 </li>
 <li><p>归并排序：</p>
-<p>![](/Time of mergeSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png" alt></p>
 </li>
 <li><p>基数排序：</p>
-<p>![](/Time of radixSort.png)</p>
+<p><img src="/2019/11/09/排序算法/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E8%80%97%E8%B4%B9%E6%97%B6%E9%97%B4.png" alt></p>
 </li>
 </ul>
 </li>

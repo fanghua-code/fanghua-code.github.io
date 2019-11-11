@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="沐雨">
 <meta property="og:description" content="查找算法常用的查找算法 在java中，我们常用到的算法有四种：  顺序（线性）查找  二分（折半）查找  插值查找  斐波那契查找">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/seqSearchTest.png">
+<meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/SeqSearchTest.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/BinarySortTest1.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/BinarySortTest2.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/mid.png">
@@ -75,11 +75,11 @@
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE38.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/Fibonacci.png">
 <meta property="og:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/FibonacciTest.png">
-<meta property="og:updated_time" content="2019-11-11T13:22:19.979Z">
+<meta property="og:updated_time" content="2019-11-11T13:25:34.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="查找算法">
 <meta name="twitter:description" content="查找算法常用的查找算法 在java中，我们常用到的算法有四种：  顺序（线性）查找  二分（折半）查找  插值查找  斐波那契查找">
-<meta name="twitter:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/seqSearchTest.png">
+<meta name="twitter:image" content="http://fanghua-code.github.io/2019/11/11/查找算法/SeqSearchTest.png">
   <link rel="canonical" href="http://fanghua-code.github.io/2019/11/11/查找算法/">
 
 
@@ -287,7 +287,7 @@
                 
               
 
-              <time title="创建时间：2019-11-11 20:15:36 / 修改时间：21:22:19" itemprop="dateCreated datePublished" datetime="2019-11-11T20:15:36+08:00">2019-11-11</time>
+              <time title="创建时间：2019-11-11 20:15:36 / 修改时间：21:25:34" itemprop="dateCreated datePublished" datetime="2019-11-11T20:15:36+08:00">2019-11-11</time>
             </span>
           
             
@@ -339,7 +339,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 线性查找</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 沐雨</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeqSearch</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 线性查找数组中的值，找到返回下标，找不到返回-1</span></span><br><span class="line"><span class="comment">     * 若数组中存在多个要查找的值，则返回排在前面要查找的值的下标</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr 查找的数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value 需要查找的值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 需要查找的值的下标</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] == value) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//测试线性查找</span></span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;-<span class="number">1</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">4</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> index = SeqSearch.search(arr, <span class="number">4</span>);</span><br><span class="line">        System.out.println(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>​        测试：</p>
-<p>​                <img src="/2019/11/11/查找算法/seqSearchTest.png" alt></p>
+<p>​                <img src="/2019/11/11/查找算法/SeqSearchTest.png" alt></p>
 <hr>
 <h5 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h5><hr>
 <ol>
